@@ -1,12 +1,12 @@
 {
-    "name": "jaguarjack/migration-generator",
+    "name": "gwind55/migration-generator",
     "description": "generator migration files if you never use it",
     "type": "library",
     "license": "MIT",
     "authors": [
         {
-            "name": "jaguarjack",
-            "email": "njphper@gmail.com"
+            "name": "gwind55",
+            "email": "asalixp@qq.com"
         }
     ],
     "minimum-stability": "dev",
