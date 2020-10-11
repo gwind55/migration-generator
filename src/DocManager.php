@@ -183,7 +183,7 @@ class DocManager
      */
     protected function ThinkPHPPdoObject()
     {
-        $tables = \think\facade\Db::connect()->getTables();
+        $tables = \think\facade\Db::connect('app')->getTables();
 
         if (empty($tables)) {
            throw new EmptyInDatabaseException();
