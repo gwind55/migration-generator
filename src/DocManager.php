@@ -189,7 +189,7 @@ class DocManager
            throw new EmptyInDatabaseException();
         }
 
-        return \think\facade\Db::table($tables[0])->getConnection()->getPdo();
+        return \think\facade\Db::connect('app')->table($tables[0])->getConnection()->getPdo();
     }
 
     /**
