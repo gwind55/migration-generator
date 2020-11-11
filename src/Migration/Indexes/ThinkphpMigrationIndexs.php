@@ -5,6 +5,7 @@ namespace JaguarJack\MigrateGenerator\Migration\Indexes;
 use Doctrine\DBAL\Schema\Index;
 use Doctrine\DBAL\Schema\Table;
 use JaguarJack\MigrateGenerator\Migration\MigrationTrait;
+use function MongoDB\BSON\toJSON;
 
 class ThinkphpMigrationIndexs
 {
@@ -31,11 +32,13 @@ class ThinkphpMigrationIndexs
         $autoIncrement = '';
 
         $autoField = $this->getAutoIncrementField();
-
         if ($autoField) {
             // list
-            [$fieldName, $signed] = $autoField;
-            $autoIncrement .= ",'id' => '{$fieldName}'";
+            [$fieldName, $signed,$type] = $autoField;
+            if(is_a($type,'Doctrine\DBAL\Types\BigIntType'))
+                $autoIncrement .= ",'id' => '{$fieldName}','limit' => MysqlAdapter::INT_BIG";
+            else
+                $autoIncrement .= ",'id' => '{$fieldName}'";
             if ($signed) {
                 $autoIncrement .= ",'signed' => true";
             }
@@ -147,7 +150,7 @@ class ThinkphpMigrationIndexs
         foreach ($columns as $key => $column) {
             if ($column->getAutoincrement()) {
                 unset($columns[$key]);
-                return [$column->getName(), $column->getUnsigned()];
+                return [$column->getName(), $column->getUnsigned(),$column->getType()];
             }
         }
 
